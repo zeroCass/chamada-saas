@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap5
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -10,6 +11,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 # login_manager.login_view = "auth.login"
 login_manager.login_message_category = "info"
+bootstrap = Bootstrap5()
 
 
 def create_app():
@@ -18,7 +20,8 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'data.sqlite')}"
 
     # init extensions
-    login_manager.init_app(app)
+    # login_manager.init_app(app)
+    bootstrap.init_app(app)
 
     # register blueprints
     from .controllers import blueprints
