@@ -5,4 +5,4 @@ bp = Blueprint("index", __name__)
 
 @bp.route("/", methods=["GET"])
 def index():
-    return "<h1>Hello Index!</h1>"
+    return render_template("index.jinja2")
