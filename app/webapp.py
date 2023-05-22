@@ -10,10 +10,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # init extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
-# login_manager.login_view = "auth.login"
+login_manager.login_view = "auth.login"
 login_manager.login_message_category = "info"
 bootstrap = Bootstrap5()
-migrate =  Migrate()
+migrate = Migrate()
+
 
 def create_app():
     app = Flask(__name__)
@@ -24,10 +25,13 @@ def create_app():
     # login_manager.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)
-    login_manager.init_app(app)
+    # login_manager.init_app(app)
     migrate.init_app(app, db)
 
     # register blueprints
+    from .auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
+
     from .controllers import blueprints
     for bp in blueprints():
         app.register_blueprint(bp, url_prefix=f"/{bp.name}")
