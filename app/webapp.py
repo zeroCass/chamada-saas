@@ -19,6 +19,7 @@ def create_app():
 
     # init extensions
     login_manager.init_app(app)
+    db.init_app(app)
 
     # register blueprints
     from .controllers import blueprints
