@@ -1,0 +1,27 @@
+Criar tabelas:
+- Usuario (id, nome, matricula, email, senha, tipo_usuario)
+- Turmas (id, nome, horario, senha, semestre, professor_id, token_presenca)
+- Matricula (estudante_id, turma_id)
+- Presenca (id, data, matricula_estudante, turma_id)]
+
+Funcionaldiades:
+- Registrar:
+	* (Usuario deve se registrar informando sua matricula, nome, etc. O email sera automaticamente preenchido quando o usuario
+	informar a matricula. Uma consulta usando uma API sera feita para ver se o email (institucional) é valido. Se for valido o 
+	registro será concluido)
+- Logar:
+	* (O usuario deve ser capaz de se logar usando suas credenciais (matricula e senha))
+	
+- Criar Turma:
+	* (Apenas o professor deve ser capaz de criar turmas, informando as informacoes necessárias)
+- Entrar em Turma:
+	* (Estudantes devem ser capazes de entrar em turmas, informando as senha. Para isso, deve haver um meio de pesquisar turmas
+	pelo seu nome por exemplo)
+- Gerar QRCODE:
+	* (O professor deve ser capaz de gerar QRCODE para uma aula especifica em uma turma. Por exemplo, se a aula for Terca das 8am ate as 10am,
+	um QRCODE unico sera gerado junto de um token unico que sera armazenado em token_presenca na tabela TURMA)
+	
+- Assinar Presenca
+	* (O aluno será capaz de scanear o codigo que o professor gerou. Um link desse QRCODE é disponilizado e ele assina a chamada usando
+	esse link)
+	
