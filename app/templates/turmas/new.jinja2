@@ -1,0 +1,65 @@
+{% extends "./base.jinja2" %}
+
+
+{% block header %}
+<h1>{% block title %}Criar Turma{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" action="{{ url_for('turmas.create') }}">
+        <div class="form-input">
+            <label for="nome"></label>
+            <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite o nome das turma"
+                required="true"
+            />
+        </div>
+        <div class="form-input">
+            <label for="horario"></label>
+            <input
+                type="text"
+                id="horario"
+                name="horario"
+                placeholder="Digite o horario de aula"
+                required="true"
+            />
+        </div>
+        <div class="form-input">
+            <label for="senha"></label>
+            <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Digite a senhada turma"
+                required="true"
+            />
+        </div>
+        <div class="form-input">
+            <label for="semestre"></label>
+            <input
+                type="text"
+                id="semestre"
+                name="semestre"
+                placeholder="Digite o semestre"
+                required="true"
+            />
+        </div>
+        <div class="form-input">
+            <label for="professor_id"></label>
+            <input
+                type="text"
+                id="professor-id"
+                name="professor_id"
+                placeholder="Digite o ID do professor"
+                required="true"
+            />
+        </div>
+        <button type="submit">Criar</button>
+    </form>
+</div>
+
+{% endblock %}

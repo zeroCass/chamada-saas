@@ -29,15 +29,16 @@ def create_app():
     migrate.init_app(app, db)
 
     # register blueprints
+    from .controllers.index import bp
+    app.register_blueprint(bp, url_prefix=f"/")
+
     from .auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
     from .controllers import blueprints
     for bp in blueprints():
+        print(bp, bp.name)
         app.register_blueprint(bp, url_prefix=f"/{bp.name}")
-
-    from .controllers.index import bp
-    app.register_blueprint(bp, url_prefix=f"/")
 
     return app
 
