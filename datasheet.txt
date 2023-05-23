@@ -2,7 +2,7 @@ Criar tabelas:
 - Usuario (id, nome, matricula, email, senha, tipo_usuario)
 - Turmas (id, nome, horario, senha, semestre, professor_id, token_presenca)
 - Matricula (estudante_id, turma_id)
-- Presenca (id, data, matricula_estudante, turma_id)]
+- Presenca (id, data, matricula_estudante, turma_id)
 
 Funcionaldiades:
 - Registrar:
