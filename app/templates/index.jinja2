@@ -5,13 +5,13 @@
 {% block content %}
     <h1>Chamadas Unb</h1>
     <div id="my-courses">
-        <h2>Minhas Turmas</h2>
-        {# {{% for turma in user.turmas %}}
+        <h5>Minhas Turmas</h5>
+        {% for turma in user.turmas %}
             <div>
-                <h1>{{ turma.nome }}</h1>
+                <h6>{{ turma.nome }}</h6>
                 <p>{{ turma.professor_id }}</p>
                 <p>{{ turma.horario }}</p>
             </div>
-        {{% endfor %}} #}
+        {% endfor %}
     </div>
 {% endblock %}

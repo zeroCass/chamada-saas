@@ -29,7 +29,7 @@ def create():
     horario = request.form.get("horario")
     senha = request.form.get("senha")
     semestre = request.form.get("semestre")
-    professor_id = request.form.get("professor_id")
+    professor_id = current_user.id
 
     print(
         f"Form fields: {nome}, {horario}, {senha}, {semestre}, {professor_id}")
