@@ -1,23 +1,29 @@
 from ..webapp import db
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask_login import login_required, current_user
 from ..models import Turma
 
 bp = Blueprint("turmas", __name__)
 
 
 @bp.route("/", methods=["GET"])
+@login_required
 def index():
     turmas = Turma.query.all()
+    # user_type = session.get("user_type")
+
     print(f"Turmas: {turmas}")
-    return render_template("turmas/index.jinja2", turmas=turmas)
+    return render_template("turmas/index.jinja2", turmas=turmas, user=current_user)
 
 
 @bp.route("/new", methods=["GET"])
+@login_required
 def new():
     return render_template("turmas/new.jinja2")
 
 
 @bp.route("/", methods=["POST"])
+@login_required
 def create():
     nome = request.form.get("nome")
     horario = request.form.get("horario")

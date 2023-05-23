@@ -23,7 +23,6 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'data.sqlite')}"
 
     # init extensions
-    # login_manager.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
