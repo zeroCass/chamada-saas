@@ -13,7 +13,7 @@ def index():
     # user_type = session.get("user_type")
 
     print(f"Turmas: {turmas}")
-    return render_template("turmas/index.jinja2", turmas=turmas, user=current_user)
+    return render_template("turmas/index.jinja2", turmas=turmas)
 
 
 @bp.route("/new", methods=["GET"])
