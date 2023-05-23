@@ -12,7 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
-login_manager.login_message_category = "info"
+# login_manager.login_message_category = "info"
 bootstrap = Bootstrap5()
 migrate = Migrate()
 
@@ -44,8 +44,9 @@ def create_app():
     from .models import Aluno, Professor
 
     @login_manager.user_loader
-    def load_user(id):
-        return Aluno.query.get(int(id)) or Professor.query.get(int(id))
+    def load_user(user_id):
+        return Aluno.query.get(int(user_id)) or Professor.query.get(int(user_id))
+
 
     # initialize commands
     from .cli_commands import seed_cli
