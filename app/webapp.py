@@ -40,6 +40,10 @@ def create_app():
         print(bp, bp.name)
         app.register_blueprint(bp, url_prefix=f"/{bp.name}")
 
+    # initialize commands
+    from .cli_commands import seed_cli
+    app.cli.add_command(seed_cli)
+
     return app
 
 

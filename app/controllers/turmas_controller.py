@@ -38,4 +38,4 @@ def create():
         db.session.rollback()
         flash("Erro ao criar turma")
 
-    return redirect(url_for("index.index"))
+    return redirect(url_for("turmas.index"))
