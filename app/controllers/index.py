@@ -5,6 +5,7 @@ bp = Blueprint("index", __name__)
 
 
 @bp.route("/", methods=["GET"])
-# @login_required
+@login_required
 def index():
+    # print(f"turmas do usuario: {current_user.turmas}")
     return render_template("index.jinja2", user=current_user)

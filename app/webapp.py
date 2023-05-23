@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap5
 from flask_migrate import Migrate
 
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # init extensions
@@ -25,7 +26,7 @@ def create_app():
     # login_manager.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)
-    # login_manager.init_app(app)
+    login_manager.init_app(app)
     migrate.init_app(app, db)
 
     # register blueprints
@@ -39,6 +40,13 @@ def create_app():
     for bp in blueprints():
         print(bp, bp.name)
         app.register_blueprint(bp, url_prefix=f"/{bp.name}")
+
+    # login manager
+    from .models import Aluno, Professor
+
+    @login_manager.user_loader
+    def load_user(id):
+        return Aluno.query.get(int(id)) or Professor.query.get(int(id))
 
     # initialize commands
     from .cli_commands import seed_cli
