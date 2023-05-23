@@ -1,9 +1,18 @@
 {% extends "./base.jinja2" %}
+{% from 'bootstrap5/utils.html' import render_icon %}
 {% block head %}
     {{ super() }}
 {% endblock %}
 {% block content %}
     <h1>Turmas</h1>
+    {% if session.user_type == "professor" %}
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="{{ url_for('turmas.new') }}" class="btn btn-success">
+                    {{render_icon('file-plus') }} <span>Adicionar Turma</span></a>
+            </div>
+        </div>
+    {% endif %}
     {% for turma in turmas %}
         <li>
             <p>{{ turma.nome }}</p>
