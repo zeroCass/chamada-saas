@@ -1,0 +1,13 @@
+{% extends "./base.jinja2" %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>Turmas</h1>
+    {% for turma in turmas %}
+        <li>
+            <p>{{ turma.nome }}</p>
+            <p>{{ turma.semestre }}</p>
+        </li>
+    {% endfor %}
+{% endblock %}
