@@ -1,7 +1,7 @@
 from ..webapp import db
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, current_user
-from ..models import Turma
+from ..models import Turma, Aluno
 from datetime import datetime
 
 
@@ -23,6 +23,7 @@ def index():
 def new():
     return render_template("turmas/new.jinja2")
 
+
 @bp.route("/validate", methods=["GET", "POST"])
 @login_required
 def validate():
@@ -30,8 +31,9 @@ def validate():
         # senha = request.form.get("senha")
         flash("Você foi matriculado em uma turma")
         return redirect(url_for("turmas.index"))
-    
+
     return render_template("turmas/validate.jinja2")
+
 
 @bp.route("/", methods=["POST"])
 @login_required
@@ -45,7 +47,7 @@ def create():
 
     horario_inicio = datetime.strptime(horario_inicio, "%H:%M").time()
     horario_fim = datetime.strptime(horario_fim, "%H:%M").time()
-    
+
     print(
         f"Form fields: {nome}, {horario_inicio}, {horario_fim}, {senha}, {semestre}, {professor_id}")
 
@@ -60,3 +62,46 @@ def create():
         flash("Erro ao criar turma")
 
     return redirect(url_for("turmas.index"))
+
+
+@bp.route("/<int:id>/show", methods=["GET"])
+def show(id):
+    turma = db.get_or_404(Turma, id)
+    if turma not in current_user.turmas:
+        return redirect(url_for("turmas.matricular", id=id))
+    return render_template("turmas/show.jinja2", turma=turma)
+
+
+@bp.route("/<int:id>/matricular", methods=["GET", "POST"])
+def matricular(id):
+    print("tentou matricular")
+    # se nao for aluno, nao pode prosseguir
+    if current_user.tipo_usuario != "aluno":
+        flash("Voce não pode realizar esta operação", category="error")
+        return redirect(url_for("turmas.index"))
+
+    turma = db.get_or_404(Turma, id)
+    print(turma)
+    if request.method == "GET":
+        print("matricular GET")
+        return render_template("turmas/validate.jinja2", turma=turma)
+
+    if request.method == "POST":
+        print("matricular POST")
+        senha = request.form.get("senha")
+        print(f"fom senha: {senha} - senha turma: {turma.senha}")
+        if senha == turma.senha:
+            try:
+                current_user.turmas.append(turma)
+                db.session.commit()
+                flash(f"Matriculou-se na Turma {turma.nome}")
+                return redirect(url_for("turmas.show", id=id))
+            except Exception as e:
+                print(f"Algo deu erro: {e}")
+                flash("Algo deu errado")
+        else:
+            flash("Senha invalida!", category="error")
+            print("senha invalida")
+            return render_template("turmas/validate.jinja2", turma=turma)
+
+        return redirect(url_for("turmas.index"))
