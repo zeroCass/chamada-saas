@@ -8,19 +8,21 @@
 {% block content %}
 <div class="container">
     <form method="POST" action="{{ url_for('turmas.create') }}">
-        <div class="form-input">
-            <label for="nome"></label>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
             <input
+                class="form-control"
                 type="text"
                 id="nome"
                 name="nome"
-                placeholder="Digite o nome das turma"
+                placeholder="Digite o nome da turma"
                 required="true"
             />
         </div>
-        <div class="form-input">
-            <label for="horario"></label>
+        <div class="mb-3">
+            <label for="horario" class="form-label">Horario</label>
             <input
+                class="form-control"
                 type="text"
                 id="horario"
                 name="horario"
@@ -28,33 +30,25 @@
                 required="true"
             />
         </div>
-        <div class="form-input">
-            <label for="senha"></label>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
             <input
+                class="form-control"
                 type="password"
                 id="senha"
                 name="senha"
-                placeholder="Digite a senhada turma"
+                placeholder="Digite a senha da turma"
                 required="true"
             />
         </div>
-        <div class="form-input">
-            <label for="semestre"></label>
+        <div class="mb-3">
+            <label for="semestre" class="form-label">Semestre</label>
             <input
+                class="form-control"
                 type="text"
                 id="semestre"
                 name="semestre"
                 placeholder="Digite o semestre"
-                required="true"
-            />
-        </div>
-        <div class="form-input">
-            <label for="professor_id"></label>
-            <input
-                type="text"
-                id="professor-id"
-                name="professor_id"
-                placeholder="Digite o ID do professor"
                 required="true"
             />
         </div>

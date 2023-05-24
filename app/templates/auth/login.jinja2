@@ -9,19 +9,21 @@
 <div class="container">
     <h1>Log In</h1>
     <form method="POST">
-        <div>
-            <label for="matricula">Matricula:</label>
+        <div class="form-floating mb-3">
             <input
+                class="form-control"
                 type="text"
                 id="matricula"
                 name="matricula"
                 placeholder="Digite sua matricula"
                 required="true"
             />
+            <label for="matricula" class="form-label">Matricula:</label>
         </div>
-        <div>
-            <label for="senha">Senha:</label>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha:</label>
                 <input
+                    class="form-control"
                     type="password"
                     id="senha"
                     name="senha"
@@ -32,7 +34,7 @@
         <button type="submit">Entrar</button>
     </form>
     <br>
-    <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register</a></p>
+    <p>Não tem conta ? <a href="{{ url_for('auth.register') }}">Registre-se.</a></p>
 </div>
 
 {% endblock %}
