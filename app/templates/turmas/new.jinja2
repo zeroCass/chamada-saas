@@ -8,8 +8,7 @@
 {% block content %}
 <div class="container">
     <form method="POST" action="{{ url_for('turmas.create') }}">
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
+        <div class="form-floating mb-3">
             <input
                 class="form-control"
                 type="text"
@@ -18,9 +17,9 @@
                 placeholder="Digite o nome da turma"
                 required="true"
             />
+            <label for="nome" class="form-label">Nome</label>
         </div>
-        <div class="mb-3">
-            <label for="horario" class="form-label">Horario</label>
+        <div class="form-floating mb-3">
             <input
                 class="form-control"
                 type="text"
@@ -29,9 +28,9 @@
                 placeholder="Digite o horario de aula"
                 required="true"
             />
+            <label for="horario" class="form-label">Horario</label>
         </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
+        <div class="form-floating mb-3">
             <input
                 class="form-control"
                 type="password"
@@ -40,9 +39,9 @@
                 placeholder="Digite a senha da turma"
                 required="true"
             />
+            <label for="senha" class="form-label">Senha</label>
         </div>
-        <div class="mb-3">
-            <label for="semestre" class="form-label">Semestre</label>
+        <div class="form-floating mb-3">
             <input
                 class="form-control"
                 type="text"
@@ -51,6 +50,7 @@
                 placeholder="Digite o semestre"
                 required="true"
             />
+            <label for="semestre" class="form-label">Semestre</label>
         </div>
         <button type="submit">Criar</button>
     </form>

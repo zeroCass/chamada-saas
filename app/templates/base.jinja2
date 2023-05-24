@@ -23,35 +23,36 @@
 </head>
 
 <body>
-    {% if current_user.is_authenticated %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        {{ render_nav_item("index.index", "Home") }}
-                        {{ render_nav_item("turmas.index", "Turmas") }}
-                        {{ render_nav_item("auth.logout", "Sair") }}
-                    </ul>
+    <head>
+        {% if current_user.is_authenticated %}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            {{ render_nav_item("index.index", "Home") }}
+                            {{ render_nav_item("turmas.index", "Turmas") }}
+                            {{ render_nav_item("auth.logout", "Sair") }}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    {% endif %}
+            </nav>
+        {% endif %}
+    </head>
     <main class="container">
         {{ render_messages(container=False, dismissible=True, dismiss_animate=True) }}
         <!-- Your page content -->
         {% block content %}{% endblock %}
     </main>
-
     <footer class="text-center">
         {% block footer %}
         <small> &copy; 2023–
             <script>document.write(new Date().getFullYear())</script> <a
-                href="https://github.com/zeroCass/chamada-saas">Repo</a>
+                href="https://github.com/zeroCass/chamada-saas" target="_blank">Repositorio</a>
         </small>
         {% endblock %}
     </footer>

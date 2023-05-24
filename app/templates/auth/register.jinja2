@@ -9,8 +9,7 @@
 <div class="container">
     <h1>Registrar</h1>
     <form method="POST">
-        <div class="mb-3">
-            <label class="form-label" for="nome">Nome:</label>
+        <div class="form-floating mb-3">
             <input
                 class="form-control"
                 type="text"
@@ -19,9 +18,9 @@
                 placeholder="Digite seu nome"
                 required="true"
             />
+            <label class="form-label" for="nome">Nome:</label>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="matricula">Matrícula:</label>
+        <div class="form-floating mb-3">
             <input 
                 class="form-control"
                 type="text"
@@ -30,9 +29,9 @@
                 placeholder="Digite sua matrícula"
                 required="true"
             />
+            <label class="form-label" for="matricula">Matrícula:</label>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="email">Email:</label>
+        <div class="form-floating mb-3">
             <input
                 class="form-control"
                 type="email"
@@ -41,9 +40,9 @@
                 placeholder="Digite seu email"
                 required="true"
             />
+            <label class="form-label" for="email">Email:</label>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="senha">Senha:</label>
+        <div class="form-floating mb-3">
             <input type="password"
                 class="form-control"
                 id="senha"
@@ -51,6 +50,7 @@
                 placeholder="Digite sua senha"
                 required="true"
             />
+            <label class="form-label" for="senha">Senha:</label>
         </div>
         <div class="mb-3">
             <h5>Tipo de Usuário:</h5>
@@ -65,7 +65,7 @@
             
         </div>
         <br>
-        <button type="submit">Registrar</button>
+        <button type="submit" class="btn btn-primary">Registrar</button>
     </form>
     <br>
     <p>Já tem um conta ? <a href="{{ url_for('auth.login') }}">Entre.</a></p>
