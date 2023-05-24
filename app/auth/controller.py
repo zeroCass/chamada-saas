@@ -8,8 +8,8 @@ bp = Blueprint("auth", __name__)
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for("index.index"))
+    # if current_user.is_authenticated:
+    #     return redirect(url_for("index.index"))
 
     if request.method == "POST":
         matricula = request.form.get("matricula")

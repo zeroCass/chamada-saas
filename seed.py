@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 alunos = [
     {"nome": "Joao das Neves", "matricula": "123",
         "email": "123@unb.com", "senha": "123", "tipo_usuario": "aluno"}
@@ -8,8 +11,13 @@ professores = [
         "email": "456@unb.com", "senha": "123", "tipo_usuario": "professor"}
 ]
 
-
 turmas = [
-    {"nome": "OAC", "horario": "04pm at 06pm",
-        "senha": "123", "semestre": "3", "professor_id": "2"}
+    {
+        "nome": "OAC",
+        "horario_inicio": datetime.strptime("16:00:00", "%H:%M:%S").time(),
+        "horario_fim": datetime.strptime("17:50:00", "%H:%M:%S").time(),
+        "senha": "123",
+        "semestre": "3",
+        "professor_id": "2"
+    }
 ]
