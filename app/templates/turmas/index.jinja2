@@ -36,22 +36,14 @@
                     {{render_icon('plus') }} <span class="d-none d-xl-inline">Adicionar Turma</span>
                 </a>
             </div>
-        </div>
-    {% endif %}
-    {% for turma in turmas %}
-        <li>
-            <p>{{ turma.nome }}</p>
-            <p>{{ turma.semestre }}</p>
-            {% if session.user_type == "aluno" %}
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a href="{{ url_for('turmas.validate') }}" class="btn btn-secondary">
-                            {{ render_icon('arrow-right') }} <span>Entrar na Turma</span></a>
-                    </div>
-                </div>
-            {% endif %}
-        </li>
-    {% endfor %}
+        {% endif %}
+        {% if session.user_type == "aluno" %}
+            <div class="position-fixed bottom-0 end-0 p-3">
+                <a href="{{ url_for('turmas.validate') }}" class="btn btn-secondary">
+                         {{ render_icon('arrow-right') }} <span>Entrar na Turma</span></a>
+            </div>
         {% endif %}
     </div>
+
+             
 {% endblock %}
