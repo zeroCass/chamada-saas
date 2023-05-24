@@ -1,13 +1,14 @@
 from . import db
-from flask_login import UserMixin
+from .usuario import Usuario
 
-class Professor(UserMixin, db.Model):
+
+class Professor(Usuario):
     __tablename__ = "professor"
 
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(150), nullable=False)
-    matricula = db.Column(db.String(15), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    senha = db.Column(db.String(200), nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
 
-    turmas = db.relationship('Turma', backref='professor', lazy=True) #um prof pode ter varias turmas (relação um para N)
+    # um prof pode ter varias turmas (relação um para N)
+    turmas = db.relationship('Turma', backref='professor', lazy=True)
+
+    def __repr__(self) -> str:
+        return f"<Professor {self.id}> Nome:{self.nome} - Matricula:{self.matricula} - Email:{self.email} - Turmas:{self.turmas}"

@@ -3,15 +3,24 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
+<div class="container">
     <h1>Chamadas Unb</h1>
-    <div id="my-courses">
-        <h2>Minhas Turmas</h2>
-        {# {{% for turma in user.turmas %}}
-            <div>
-                <h1>{{ turma.nome }}</h1>
-                <p>{{ turma.professor_id }}</p>
-                <p>{{ turma.horario }}</p>
-            </div>
-        {{% endfor %}} #}
+    <div class="row rows-col-1 m-3">
+            <h5>Minhas Turmas</h5>
+        </div>
+    <div id="my-courses" class="row row-col-1 row-cols-md-2 row-cols-lg-4">
+        {% for turma in user.turmas %}
+            <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ turma.nome }}</h5>
+                            <p class="card-text">Horário: {{ turma.horario }}</p>
+                            {# <p class="card-text">Horário de Fim: {{ turma.horario_fim }}</p> #}
+                            <p class="card-text">Professor: {{ turma.professor_id }}</p>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
