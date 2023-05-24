@@ -8,6 +8,9 @@ bp = Blueprint("auth", __name__)
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("index.index"))
+
     if request.method == "POST":
         matricula = request.form.get("matricula")
         senha = request.form.get("senha")
@@ -30,7 +33,8 @@ def login():
                     session["user_type"] = user_type
 
                     print(f"Usuario logado: ({user_type}):{user}")
-                    return render_template("index.jinja2", user=current_user, user_type=user_type)
+                    # return render_template("index.jinja2", user=current_user)
+                    return redirect(url_for("index.index"))
                 else:
                     flash("Senha invalida!", category="error")
             else:
@@ -44,6 +48,9 @@ def login():
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("index.index"))
+
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
@@ -60,12 +67,12 @@ def register():
 
         # Salvar os dados nas tabelas correspondentes com base no tipo de usuário
         user = ""
-        if tipo_usuario == "Aluno":
+        if tipo_usuario == "aluno":
             user = Aluno(nome=nome, email=email,
-                         matricula=matricula, senha=senha)
-        elif tipo_usuario == "Professor":
+                         matricula=matricula, senha=senha, tipo_usuario=tipo_usuario)
+        elif tipo_usuario == "professor":
             user = Professor(nome=nome, email=email,
-                             matricula=matricula, senha=senha)
+                             matricula=matricula, senha=senha, tipo_usuario=tipo_usuario)
         try:
             db.session.add(user)
             db.session.commit()
