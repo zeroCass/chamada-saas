@@ -1,8 +1,10 @@
 {% extends "./base.jinja2" %}
 {% from 'bootstrap5/utils.html' import render_icon %}
+
 {% block head %}
     {{ super() }}
 {% endblock %}
+
 {% block content %}
     <h1>Turmas</h1>
     {% if session.user_type == "professor" %}
@@ -17,6 +19,14 @@
         <li>
             <p>{{ turma.nome }}</p>
             <p>{{ turma.semestre }}</p>
+            {% if session.user_type == "aluno" %}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{ url_for('turmas.validate') }}" class="btn btn-secondary">
+                            {{ render_icon('arrow-right') }} <span>Entrar na Turma</span></a>
+                    </div>
+                </div>
+            {% endif %}
         </li>
     {% endfor %}
 {% endblock %}

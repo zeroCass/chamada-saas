@@ -21,6 +21,15 @@ def index():
 def new():
     return render_template("turmas/new.jinja2")
 
+@bp.route("/validate", methods=["GET", "POST"])
+@login_required
+def validate():
+    if request.method == "POST":
+        # senha = request.form.get("senha")
+        flash("Você foi matriculado em uma turma")
+        return redirect(url_for("turmas.index"))
+    
+    return render_template("turmas/validate.jinja2")
 
 @bp.route("/", methods=["POST"])
 @login_required
