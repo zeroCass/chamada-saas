@@ -2,6 +2,8 @@ from ..webapp import db
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, current_user
 from ..models import Turma
+from datetime import datetime
+
 
 bp = Blueprint("turmas", __name__)
 
@@ -13,7 +15,7 @@ def index():
     # user_type = session.get("user_type")
 
     print(f"Turmas: {turmas}")
-    return render_template("turmas/index.jinja2", turmas=turmas)
+    return render_template("turmas/index.jinja2", turmas=turmas, user=current_user)
 
 
 @bp.route("/new", methods=["GET"])
@@ -35,15 +37,19 @@ def validate():
 @login_required
 def create():
     nome = request.form.get("nome")
-    horario = request.form.get("horario")
+    horario_inicio = request.form.get("horario_inicio")
+    horario_fim = request.form.get("horario_fim")
     senha = request.form.get("senha")
     semestre = request.form.get("semestre")
     professor_id = current_user.id
 
+    horario_inicio = datetime.strptime(horario_inicio, "%H:%M").time()
+    horario_fim = datetime.strptime(horario_fim, "%H:%M").time()
+    
     print(
-        f"Form fields: {nome}, {horario}, {senha}, {semestre}, {professor_id}")
+        f"Form fields: {nome}, {horario_inicio}, {horario_fim}, {senha}, {semestre}, {professor_id}")
 
-    new_turma = Turma(nome=nome, horario=horario, senha=senha,
+    new_turma = Turma(nome=nome, horario_inicio=horario_inicio, horario_fim=horario_fim, senha=senha,
                       semestre=semestre, professor_id=professor_id)
     try:
         db.session.add(new_turma)

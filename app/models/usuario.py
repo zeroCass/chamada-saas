@@ -1,9 +1,8 @@
 from . import db
-from flask_login import UserMixin
 from sqlalchemy import Enum
+from flask_login import UserMixin
 
-
-class Usuario(UserMixin, db.Model):
+class Usuario(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(150), nullable=False)
     matricula = db.Column(db.String(15), unique=True, nullable=False)

@@ -14,8 +14,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{ turma.nome }}</h5>
-                            <p class="card-text">Horário: {{ turma.horario }}</p>
-                            {# <p class="card-text">Horário de Fim: {{ turma.horario_fim }}</p> #}
+                            <p>Horário de início: {{ turma.horario_inicio.strftime('%H:%M') }}</p>
+                            <p>Horário de Fim: {{ turma.horario_fim.strftime('%H:%M') }}</p>
                             <p class="card-text">Professor: {{ turma.professor_id }}</p>
                         </div>
                     </div>
