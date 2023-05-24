@@ -21,7 +21,9 @@
                 <div class="col mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ turma.nome }}</h5>
+                            <a href="{{ url_for('turmas.show', id=turma.id) }}">
+                                <h5 class="card-title">{{ turma.nome }}</h5>
+                            </a>
                             <p>Horário de início: {{ turma.horario_inicio.strftime('%H:%M') }}</p>
                             <p>Horário de Fim: {{ turma.horario_fim.strftime('%H:%M') }}</p>
                             <p class="card-text">Professor: {{ turma.professor_id }}</p>
