@@ -1,4 +1,5 @@
 {% extends "./base.jinja2" %}
+{% from 'bootstrap5/utils.html' import render_icon %}
 
 
 {% block header %}
@@ -9,5 +10,30 @@
 <div class="container">
     <h3>Turma {{ turma.nome }}</h3>
     <p>Semestre: {{ turma.semestre }}</p>
+    <b>Aulas:</b>
+    <div class="row row-col-1 row-cols-md-2 row-cols-lg-4">
+        {% for aula in aulas %}
+            <div>
+                <div class="card">
+                    <div class="card-body">
+                        <p>Aula dia: {{ aula.data_aula.strftime('%d/%m/%Y') }}</p>
+                        <p>Horario: {{ turma.horario_inicio.strftime('%H:%M') }} ate {{ turma.horario_fim.strftime('%H:%M') }}</p>
+                        <p>Status: {{ aula.status }}</p>
+                        {% if user.tipo_usuario == "aluno" and aula.status == "em andamento" %}
+                        <button>Assinar chamada</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if user.tipo_usuario == "professor" %}
+            <div class="position-fixed bottom-0 end-0 p-3">
+                <a href="{{ url_for('index.index') }}" class="btn btn-floating btn-lg btn-primary">
+                    {{render_icon('plus') }} <span class="d-none d-xl-inline">Adicionar Aula</span>
+                </a>
+            </div>
+    {% endif %}
 </div>
+
 {% endblock %}

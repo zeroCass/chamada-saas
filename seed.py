@@ -21,3 +21,11 @@ turmas = [
         "professor_id": "2"
     }
 ]
+
+aulas = [
+    {
+        "turma_id" : "1",
+        "data_aula": datetime.strptime("25/05/2023", "%d/%m/%Y").date(),
+        "status": "em andamento"
+    }
+]
