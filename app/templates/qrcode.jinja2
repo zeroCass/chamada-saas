@@ -1,0 +1,62 @@
+{% extends "base.jinja2" %}
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='html5-qrcode.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>QRCODE</h1>
+    <div id="reader" width="600px"></div>
+    <div id="result"></div>
+</div>
+<script>
+    function onScanSuccess(decodedText, decodedResult) {
+        // Handle the scanned code as you like
+        console.log(`Code matched = ${decodedText}`, decodedResult)
+        
+        
+        // Make an HTTP POST request to the Flask route
+        fetch('/qrcode', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `decoded_text=${encodeURIComponent(decodedText)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the data if necessary
+            console.log('data:', data)
+            if (data.status === "sucess") {
+                window.location.href = '/'
+            }
+        })
+        .catch(error => {
+            // Handle the error if necessary
+            console.error('Error:', error)
+        })
+        .finally(() => {
+            html5QrcodeScanner.clear()
+            document.getElementById("reader").remove()
+        })
+        /*document.getElementById("result").innerHTML = `
+        <h2>Sucesso</h2>
+        <p>${decodedText}</p>
+        `
+        html5QrcodeScanner.clear()
+        document.getElementById("render").remove()*/
+    }
+
+    function onScanFailure(error) {
+        // Handle scan failure
+        console.warn(`Code scan error = ${error}`)
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: {width: 250, height: 250} },
+        /* verbose= */ false
+    )
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure)
+</script>
+{% endblock %}
