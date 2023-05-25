@@ -1,7 +1,7 @@
 from flask.cli import AppGroup
 from .webapp import db
-from seed import alunos, professores, turmas
-from .models import Aluno, Professor, Turma
+from seed import alunos, professores, turmas, aulas
+from .models import Aluno, Professor, Turma, Aula
 
 seed_cli = AppGroup("seed")
 
@@ -24,4 +24,10 @@ def seed_professores():
 def seed_turmas():
     for turma in turmas:
         db.session.add(Turma(**turma))
+    db.session.commit()
+
+@seed_cli.command("aulas")
+def seed_aulas():
+    for aula in aulas:
+        db.session.add(Aula(**aula))
     db.session.commit()
