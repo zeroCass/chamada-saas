@@ -42,7 +42,7 @@ def create(turma_id):
         turma_id=turma_id, data_aula=data_aula).first()
     if existing_aula:
         flash("Já existe uma aula para essa data")
-        return redirect(url_for("turmas.show", id=turma_id))
+        return redirect(url_for("turmas.show", turma_id=turma_id))
 
     data_atual = datetime.now().date()
     hora_atual = datetime.now().time()
@@ -66,4 +66,4 @@ def create(turma_id):
     db.session.add(aula)
     db.session.commit()
 
-    return redirect(url_for("turmas.show", id=turma_id))
+    return redirect(url_for("turmas.show", turma_id=turma_id))

@@ -1,7 +1,7 @@
 from ..webapp import db
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from ..models import Turma, Aluno, Aula
+from ..models import Turma, Aula
 from datetime import datetime
 from .aulas_controller import register_blueprint as register_aulas_blueprint
 
@@ -66,24 +66,24 @@ def create():
     return redirect(url_for("turmas.index"))
 
 
-@bp.route("/<int:id>/show", methods=["GET"])
-def show(id):
-    turma = db.get_or_404(Turma, id)
-    aulas = Aula.query.filter_by(turma_id=id).all()
+@bp.route("/<int:turma_id>/show", methods=["GET"])
+def show(turma_id):
+    turma = db.get_or_404(Turma, turma_id)
+    aulas = Aula.query.filter_by(turma_id=turma_id).all()
     if turma not in current_user.turmas:
-        return redirect(url_for("turmas.matricular", id=id))
+        return redirect(url_for("turmas.matricular", turma_id=turma_id))
     return render_template("turmas/show.jinja2", turma=turma, aulas=aulas, user=current_user)
 
 
-@bp.route("/<int:id>/matricular", methods=["GET", "POST"])
-def matricular(id):
+@bp.route("/<int:turma_id>/matricular", methods=["GET", "POST"])
+def matricular(turma_id):
     print("tentou matricular")
     # se nao for aluno, nao pode prosseguir
     if current_user.tipo_usuario != "aluno":
         flash("Voce não pode realizar esta operação", category="error")
         return redirect(url_for("turmas.index"))
 
-    turma = db.get_or_404(Turma, id)
+    turma = db.get_or_404(Turma, turma_id)
     print(turma)
     if request.method == "GET":
         print("matricular GET")
@@ -98,7 +98,7 @@ def matricular(id):
                 current_user.turmas.append(turma)
                 db.session.commit()
                 flash(f"Matriculou-se na Turma {turma.nome}")
-                return redirect(url_for("turmas.show", id=id))
+                return redirect(url_for("turmas.show", turma_id=turma_id))
             except Exception as e:
                 print(f"Algo deu erro: {e}")
                 flash("Algo deu errado")
