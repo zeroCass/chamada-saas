@@ -15,3 +15,6 @@ venv.bak/
 .Python
 __pypackages__/
 .vscode
+
+# Others
+datasheet.txt
