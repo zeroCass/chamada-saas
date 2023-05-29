@@ -67,3 +67,20 @@ def create(turma_id):
     db.session.commit()
 
     return redirect(url_for("turmas.show", id=turma_id))
+
+@bp.route("/turma/<int:turma_id>/<int:aula_id>/edit", methods=['GET', 'POST'])
+@login_required
+def edit(turma_id, aula_id):
+    turma = Turma.query.get_or_404(turma_id)
+    aula = Aula.query.get_or_404(aula_id)
+
+    data_atual = datetime.now().date()
+    hora_atual = datetime.now().time()
+
+    if request.method == "POST":
+        novo_status = request.form.get('novo_status')
+        aula.status = novo_status
+        db.session.commit()
+        return redirect(url_for("turmas.show", id=turma_id))
+
+    return render_template("aulas/edit.jinja2", turma=turma, aula=aula, data_atual=data_atual, hora_atual=hora_atual)
