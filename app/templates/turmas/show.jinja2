@@ -26,7 +26,7 @@
     </div>
     {% if user.tipo_usuario == "professor" %}
             <div class="position-fixed bottom-0 end-0 p-3">
-                <a href="{{ url_for('aulas.new', turma_id=turma.id) }}" class="btn btn-floating btn-lg btn-primary">
+                <a href="{{ url_for('turmas.aulas.new', turma_id=turma.id) }}" class="btn btn-floating btn-lg btn-primary">
                     {{render_icon('plus') }} <span class="d-none d-xl-inline">Adicionar Aula</span>
                 </a>
             </div>

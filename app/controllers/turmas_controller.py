@@ -3,9 +3,11 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_required, current_user
 from ..models import Turma, Aluno, Aula
 from datetime import datetime
-
+from .aulas_controller import register_blueprint as register_aulas_blueprint
 
 bp = Blueprint("turmas", __name__)
+# registra blueprint de aulas passando turmas como pai
+register_aulas_blueprint(bp)
 
 
 @bp.route("/", methods=["GET"])
