@@ -10,7 +10,7 @@
 
         {% elif user.tipo_usuario == "professor" %}
             <div>
-                <a class="btn btn-primary" href="{{ url_for('aulas.edit', turma_id=turma.id, aula_id=aula.id) }}">Editar</a>
+                <a class="btn btn-primary" href="{{ url_for('turmas.aulas.edit', turma_id=turma.id, aula_id=aula.id) }}">Editar</a>
                 <button class="btn btn-primary">Acompanhar</button>
             </div>
         {% endif %}

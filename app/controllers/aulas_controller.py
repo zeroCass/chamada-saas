@@ -68,7 +68,7 @@ def create(turma_id):
 
     return redirect(url_for("turmas.show", id=turma_id))
 
-@bp.route("/turma/<int:turma_id>/<int:aula_id>/edit", methods=['GET', 'POST'])
+@bp.route("/<int:aula_id>/edit", methods=['GET', 'POST'])
 @login_required
 def edit(turma_id, aula_id):
     turma = Turma.query.get_or_404(turma_id)
