@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from ..models import Turma, Aula
 from datetime import datetime
-from app.helpers.decorators import load_parent_resource_factory
+from app.utils.decorators import load_parent_resource_factory
 from .presenca_controller import register_blueprint as register_presenca_blueprint
 
 bp = Blueprint("aulas", __name__)
