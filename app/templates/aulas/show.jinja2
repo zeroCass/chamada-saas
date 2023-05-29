@@ -6,8 +6,9 @@
 
     <div class="d-flex">
         {% if user.tipo_usuario == "aluno" and aula.status == "em andamento" %}
-            <a class="btn btn-primary" href="{{ url_for('qrcode.qrcode') }}">Assinar chamada</a>
-
+            <form method="POST" action="{{ url_for('turmas.aulas.presenca.registrar_presenca', turma_id=turma.id, aula_id=aula.id) }}">
+                <button class="btn btn-primary" type="submit">Assinar Chamada</button>
+            </form>
         {% elif user.tipo_usuario == "professor" %}
             <div>
                 <a class="btn btn-primary" href="{{ url_for('turmas.aulas.edit', turma_id=turma.id, aula_id=aula.id) }}">Editar</a>
