@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
     <h3>Criar Aula da Turma: {{ turma.nome }}</h3>
-    <form method="POST" action="{{ url_for('aulas.create', turma_id=turma.id) }}">
+    <form method="POST" action="{{ url_for('turmas.aulas.create', turma_id=turma.id) }}">
         <div class="form-floating mb-3">
             <input
                 class="form-control"

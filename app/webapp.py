@@ -29,12 +29,15 @@ def create_app():
     migrate.init_app(app, db)
 
     # register blueprints
+    # bp for the index
     from .controllers.index import bp
     app.register_blueprint(bp, url_prefix=f"/")
 
+    # bp for authentication routes
     from .auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
+    # others bp
     from .controllers import blueprints
     for bp in blueprints():
         print(bp, bp.name)
@@ -54,5 +57,6 @@ def create_app():
     app.cli.add_command(seed_cli)
 
     return app
+
 
 app = create_app()
