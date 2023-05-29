@@ -7,5 +7,26 @@
         <a class="btn btn-primary" 
             href="{{ url_for('turmas.aulas.presenca.registrar_presenca', turma_id=aula.turma_id, aula_id=aula.id) }}">Assinar chamada</a>
     {% endif %}
+    {% if user.tipo_usuario == "professor" and aula.status == "em andamento" %}
+        <button 
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#qrcode-modal">
+                Qrcode
+        </button>
+    {% endif %}
+    <div class="modal fade" id="qrcode-modal">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Qrcode da Aula</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ url_for('turmas.aulas.presenca.qrcode', turma_id=aula.turma_id, aula_id=aula.id) }}">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

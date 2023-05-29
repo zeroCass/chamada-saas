@@ -1,7 +1,10 @@
 from ..webapp import db
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, make_response, send_file
 from flask_login import login_required
-from ..models import Aula
+from ..models.aula import Aula
+from app.utils.qrcode import gerar_qrcode
+
+import io
 
 bp = Blueprint("presenca", __name__)
 
@@ -15,3 +18,13 @@ def register_blueprint(parent_blueprint: Blueprint):
 @login_required
 def registrar_presenca(turma_id, aula_id):
     return f"<h1>Aula ID: {aula_id} </h1>"
+
+
+@bp.route("/qrcode", methods=["GET"])
+@login_required
+def qrcode(turma_id, aula_id):
+
+    aula = Aula.query.filter_by(id=aula_id).first()
+    qrcode_image = gerar_qrcode(aula.token)
+
+    return send_file(qrcode_image, mimetype="image/png")
