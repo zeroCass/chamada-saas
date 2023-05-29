@@ -4,8 +4,12 @@ from flask_login import login_required
 from ..models import Turma, Aula
 from datetime import datetime
 from app.helpers.decorators import load_parent_resource_factory
+from .presenca_controller import register_blueprint as register_presenca_blueprint
 
 bp = Blueprint("aulas", __name__)
+# registra blueprint de presenca passando aulas como pai
+register_presenca_blueprint(bp)
+
 
 parent_model = Turma
 
@@ -42,7 +46,7 @@ def create(turma_id):
         turma_id=turma_id, data_aula=data_aula).first()
     if existing_aula:
         flash("Já existe uma aula para essa data")
-        return redirect(url_for("turmas.show", id=turma_id))
+        return redirect(url_for("turmas.show", turma_id=turma_id))
 
     data_atual = datetime.now().date()
     hora_atual = datetime.now().time()
@@ -66,7 +70,7 @@ def create(turma_id):
     db.session.add(aula)
     db.session.commit()
 
-    return redirect(url_for("turmas.show", id=turma_id))
+    return redirect(url_for("turmas.show", turma_id=turma_id))
 
 @bp.route("/<int:aula_id>/edit", methods=['GET', 'POST'])
 @login_required
