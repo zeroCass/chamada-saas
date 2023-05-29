@@ -4,8 +4,12 @@ from flask_login import login_required
 from ..models import Turma, Aula
 from datetime import datetime
 from app.helpers.decorators import load_parent_resource_factory
+from .presenca_controller import register_blueprint as register_presenca_blueprint
 
 bp = Blueprint("aulas", __name__)
+# registra blueprint de presenca passando aulas como pai
+register_presenca_blueprint(bp)
+
 
 parent_model = Turma
 

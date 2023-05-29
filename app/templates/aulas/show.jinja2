@@ -4,7 +4,8 @@
     <p>Horario: {{ turma.horario_inicio.strftime('%H:%M') }} ate {{ turma.horario_fim.strftime('%H:%M') }}</p>
     <p>Status: {{ aula.status }}</p>
     {% if user.tipo_usuario == "aluno" and aula.status == "em andamento" %}
-        <a class="btn btn-primary" href="{{ url_for('qrcode.qrcode') }}">Assinar chamada</a>
+        <a class="btn btn-primary" 
+            href="{{ url_for('turmas.aulas.presenca.registrar_presenca', turma_id=aula.turma_id, aula_id=aula.id) }}">Assinar chamada</a>
     {% endif %}
 </div>
 {% endblock %}
