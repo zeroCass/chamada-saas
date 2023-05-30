@@ -5,6 +5,7 @@ from ..models import Aula, Presenca
 from app.utils.qrcode import gerar_qrcode, qrcode_isvalid
 from datetime import datetime
 from flask_login import login_required, current_user
+from ..models import Aula, Presenca, Aluno
 
 
 bp = Blueprint("presenca", __name__)
@@ -51,6 +52,15 @@ def registrar_presenca(turma_id, aula_id):
             else:
                 flash("Qrcode inválido", category="error")
     return redirect(url_for("turmas.show", turma_id=turma_id))
+        flash("Chamada Assinada", category="sucess")
+        return redirect(url_for("turmas.show", turma_id=turma_id))
+        
+@bp.route("/alunos", methods=["GET"])
+@login_required
+def listar_presencas(turma_id, aula_id):
+    aula = Aula.query.get(aula_id)
+    alunos = Aluno.query.all()
+    presencas = Presenca.query.filter_by(aula_id=aula_id).all()
 
 
 @bp.route("/qrcode", methods=["GET"])
@@ -61,3 +71,5 @@ def qrcode(turma_id, aula_id):
     qrcode_image = gerar_qrcode(aula.token)
 
     return send_file(qrcode_image, mimetype="image/png")
+
+    return render_template("aulas/presencas.jinja2", aula=aula, alunos=alunos, presencas=presencas)
