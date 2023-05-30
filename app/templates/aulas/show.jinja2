@@ -15,15 +15,14 @@
             </div>
         {% endif %}
         {% if user.tipo_usuario == "professor" and aula.status == "em andamento" %}
-            <button 
+            <a 
                 class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#qrcode-modal">
+                href="{{ url_for('turmas.aulas.presenca.qrcode_page', turma_id=aula.turma_id, aula_id=aula.id) }}">
                     Qrcode
-            </button>
+            </a>
         {% endif %}
     </div>
-        <div class="modal fade" id="qrcode-modal">
+    {# <div class="modal fade" id="qrcode-modal">
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
@@ -35,6 +34,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> #}
 </div>
 {% endblock %}

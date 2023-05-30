@@ -56,6 +56,14 @@ def create_app():
     from .cli_commands import seed_cli
     app.cli.add_command(seed_cli)
 
+    # thread initializer
+    from .utils.th_check_aula_status import verificar_status_aulas
+    import threading
+
+    status_thread = threading.Thread(target=verificar_status_aulas, args=[app])
+    status_thread.daemon = True
+    status_thread.start()
+
     return app
 
 
