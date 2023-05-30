@@ -51,7 +51,7 @@ def registrar_presenca(turma_id, aula_id):
                 flash("Chamada Assinada", category="sucess")
             else:
                 flash("Qrcode inválido", category="error")
-    return redirect(url_for("turmas.show", turma_id=turma_id))
+
         flash("Chamada Assinada", category="sucess")
         return redirect(url_for("turmas.show", turma_id=turma_id))
         
@@ -61,6 +61,8 @@ def listar_presencas(turma_id, aula_id):
     aula = Aula.query.get(aula_id)
     alunos = Aluno.query.all()
     presencas = Presenca.query.filter_by(aula_id=aula_id).all()
+    
+    return render_template("aulas/presencas.jinja2", aula=aula, alunos=alunos, presencas=presencas)
 
 
 @bp.route("/qrcode", methods=["GET"])
@@ -71,5 +73,3 @@ def qrcode(turma_id, aula_id):
     qrcode_image = gerar_qrcode(aula.token)
 
     return send_file(qrcode_image, mimetype="image/png")
-
-    return render_template("aulas/presencas.jinja2", aula=aula, alunos=alunos, presencas=presencas)
