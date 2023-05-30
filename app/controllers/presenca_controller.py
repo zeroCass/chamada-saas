@@ -5,6 +5,7 @@ from ..models import Aula, Presenca
 from app.utils.qrcode import gerar_qrcode, qrcode_isvalid
 from datetime import datetime
 from flask_login import login_required, current_user
+import base64
 
 
 bp = Blueprint("presenca", __name__)
@@ -56,8 +57,30 @@ def registrar_presenca(turma_id, aula_id):
 @bp.route("/qrcode", methods=["GET"])
 @login_required
 def qrcode(turma_id, aula_id):
+    """
+    gera uma imagem qrcode baseado no token da aula
+    :return: imagem para ser renderizado no template jinja
+    """
 
     aula = Aula.query.filter_by(id=aula_id).first()
+    print(f"aula token: {aula.token} - aula id: {aula.id}")
     qrcode_image = gerar_qrcode(aula.token)
 
     return send_file(qrcode_image, mimetype="image/png")
+
+
+@bp.route("/qrcode_page", methods=["GET"])
+@login_required
+def qrcode_page(turma_id, aula_id):
+    """
+    gera uma imagem qrcode baseado no token da aula
+    :return: template jinja com imagem em base64 como parametro
+    """
+
+    aula = Aula.query.filter_by(id=aula_id).first()
+    print(f"aula token: {aula.token} - aula id: {aula.id}")
+    qrcode_image = gerar_qrcode(aula.token)
+
+    imagem_base64 = base64.b64encode(qrcode_image.getvalue()).decode('utf-8')
+
+    return render_template("aulas/qrcode.jinja2", qrcode_image=imagem_base64)
