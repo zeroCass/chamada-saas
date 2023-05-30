@@ -3,19 +3,27 @@
     <p>Aula dia: {{ aula.data_aula.strftime('%d/%m/%Y') }}</p>
     <p>Horario: {{ turma.horario_inicio.strftime('%H:%M') }} ate {{ turma.horario_fim.strftime('%H:%M') }}</p>
     <p>Status: {{ aula.status }}</p>
-    {% if user.tipo_usuario == "aluno" and aula.status == "em andamento" %}
-        <a class="btn btn-primary" 
-            href="{{ url_for('turmas.aulas.presenca.registrar_presenca', turma_id=aula.turma_id, aula_id=aula.id) }}">Assinar chamada</a>
-    {% endif %}
-    {% if user.tipo_usuario == "professor" and aula.status == "em andamento" %}
-        <button 
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#qrcode-modal">
-                Qrcode
-        </button>
-    {% endif %}
-    <div class="modal fade" id="qrcode-modal">
+    <div class="d-flex">
+        {% if user.tipo_usuario == "aluno" and aula.status == "em andamento" %}
+            <form method="GET" action="{{ url_for('turmas.aulas.presenca.registrar_presenca', turma_id=turma.id, aula_id=aula.id) }}">
+                <button class="btn btn-primary" type="submit">Assinar Chamada</button>
+            </form>
+        {% elif user.tipo_usuario == "professor" %}
+            <div>
+                <a class="btn btn-primary" href="{{ url_for('turmas.aulas.edit', turma_id=turma.id, aula_id=aula.id) }}">Editar</a>
+                <button class="btn btn-primary">Acompanhar</button>
+            </div>
+        {% endif %}
+        {% if user.tipo_usuario == "professor" and aula.status == "em andamento" %}
+            <button 
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#qrcode-modal">
+                    Qrcode
+            </button>
+        {% endif %}
+    </div>
+        <div class="modal fade" id="qrcode-modal">
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,19 +35,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="d-flex">
-        {% if user.tipo_usuario == "aluno" and aula.status == "em andamento" %}
-            <form method="POST" action="{{ url_for('turmas.aulas.presenca.registrar_presenca', turma_id=turma.id, aula_id=aula.id) }}">
-                <button class="btn btn-primary" type="submit">Assinar Chamada</button>
-            </form>
-        {% elif user.tipo_usuario == "professor" %}
-            <div>
-                <a class="btn btn-primary" href="{{ url_for('turmas.aulas.edit', turma_id=turma.id, aula_id=aula.id) }}">Editar</a>
-                <button class="btn btn-primary">Acompanhar</button>
-            </div>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
